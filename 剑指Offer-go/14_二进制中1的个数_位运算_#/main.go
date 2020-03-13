@@ -7,8 +7,10 @@ func hammingWeight1(num uint32) int {
 	var count uint32
 
 	for num > 0 {
-		count += num & uint32(1)
-		num = num >> 1
+		//与1作 & 运算
+		count ++
+		//移位
+		num = num & (num - 1)
 	}
 
 	return int(count)
@@ -27,6 +29,6 @@ func hammingWeight2(num uint32) int {
 }
 
 func main() {
-	var num uint32 = 11111111111111111111111111111101
+	var num uint32 = 00000000000000000000000000001011
 	println(hammingWeight1(num))
 }
