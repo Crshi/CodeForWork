@@ -20,13 +20,14 @@ func myPow(x float64, n int) float64 {
 		if b&1 == 1 {
 			res = res * x
 		}
-
+		//2的五次方 = 2的一次方 乘以 2的四次方
 		x = x * x
 		b >>= 1
 	}
 	return res
 }
 
+//
 //一般解法会超时
 // func myPow(x float64, n int) float64 {
 
@@ -51,5 +52,5 @@ func myPow(x float64, n int) float64 {
 // }
 
 func main() {
-	fmt.Println(myPow(0.00001, 2147483647))
+	fmt.Println(myPow(2, 5))
 }
