@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type CQueue struct {
 	//栈in负责输入，栈out负责从头输出
 	in  []int
@@ -46,6 +48,6 @@ func (this *CQueue) DeleteHead() int {
 
 func main() {
 	obj := Constructor()
-	obj.AppendTail(value)
-	param_2 := obj.DeleteHead()
+	obj.AppendTail(1)
+	fmt.Println(obj.DeleteHead())
 }
