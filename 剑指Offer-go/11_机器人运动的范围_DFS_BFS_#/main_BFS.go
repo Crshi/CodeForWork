@@ -4,6 +4,7 @@ type node struct {
 	x int
 	y int
 }
+
 func Sum(x, y int) int {
 	sum := 0
 	for x != 0 {
@@ -21,13 +22,13 @@ func movingCountBFS(m int, n int, k int) int {
 	if m == 0 || n == 0 {
 		return 0
 	}
-	vis := make([][]bool, m + 1)
-	for i := 0; i < m + 1; i ++ {
-		vis[i] = make([]bool, n + 1)
+	vis := make([][]bool, m+1)
+	for i := 0; i < m+1; i++ {
+		vis[i] = make([]bool, n+1)
 	}
 	que := []node{node{
-		x:0,
-		y:0,
+		x: 0,
+		y: 0,
 	}}
 	var ans int = 0
 	dir := [4][2]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
@@ -42,12 +43,12 @@ func movingCountBFS(m int, n int, k int) int {
 			continue
 		}
 		vis[front.x][front.y] = true
-		ans ++
-		for i := 0; i < 4; i ++ {
+		ans++
+		for i := 0; i < 4; i++ {
 			nx := front.x + dir[i][0]
 			ny := front.y + dir[i][1]
 			if nx >= 0 && nx < m && ny >= 0 && ny < n {
-				que = append(que, node{x:nx, y:ny,})
+				que = append(que, node{x: nx, y: ny})
 			}
 		}
 	}
@@ -55,5 +56,6 @@ func movingCountBFS(m int, n int, k int) int {
 }
 
 func main() {
-	println(movingCountBFS(2,3,1))
+	println(movingCountBFS(2, 3, 1))
+	println(movingCountDFS(2, 3, 1))
 }
