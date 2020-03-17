@@ -30,9 +30,9 @@ func (this *MinStack) Top() int {
 }
 
 func (this *MinStack) Min() int {
-	min := 0
+	min := this.data[0]
 
-	for i := 0; i < len(this.data); i++ {
+	for i := 1; i < len(this.data); i++ {
 		if min > this.data[i] {
 			min = this.data[i]
 		}
