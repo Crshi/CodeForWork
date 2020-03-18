@@ -15,6 +15,9 @@ func main() {
 	//利用索引获取字符
 	byteData := tmp[0]
 
+	//利用字符串获取字节数组
+	var bytes = []byte(tmp)
+
 	//字符转换字符串
 	fmt.Println(string(byteData))
 
@@ -22,4 +25,6 @@ func main() {
 	intData, _ := strconv.Atoi(stringData)
 
 	fmt.Println(intData)
+
+	fmt.Println(bytes)
 }
