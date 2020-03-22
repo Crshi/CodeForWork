@@ -62,4 +62,10 @@ func main() {
 	//https://www.cnblogs.com/snowInPluto/p/7477365.html
 	// changeDataByPoint(&data)
 	// fmt.Println(data)
+
+	//插入元素
+	rear := append([]int{100}, data[5:]...)
+	data = append(data[:5], rear...)
+
+	fmt.Println("data:", data)
 }
