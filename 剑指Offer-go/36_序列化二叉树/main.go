@@ -1,6 +1,9 @@
 package main
 
-import "strconv"
+import (
+	"strconv"
+	"strings"
+)
 
 type TreeNode struct {
 	val   int
@@ -32,15 +35,32 @@ func serialize(root *TreeNode) string {
 		queue = queue[length:]
 	}
 
+	for {
+		if res[len(res)-5:] == "null," {
+			res = res[:len(res)-5]
+		} else {
+			break
+		}
+	}
+
 	res = res[:len(res)-1] + "]"
 
 	return res
 }
 
-// Decodes your encoded data to tree.
-// func deserialize(data string) *TreeNode {
+//Decodes your encoded data to tree.
+func deserialize(data string) *TreeNode {
+	data = data[1 : len(data)-1]
+	datas := strings.Split(data, ",")
 
-// }
+	head := TreeNode{
+		val: strconv.Atoi(datas[0]),
+	}
+
+	for i := 1; i < len(datas); i++ {
+
+	}
+}
 
 func main() {
 	head := TreeNode{
@@ -59,5 +79,7 @@ func main() {
 		},
 	}
 
-	println(serialize(&head))
+	head2 := deserialize(serialize(&head))
+
+	println(head2)
 }

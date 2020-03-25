@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -21,10 +22,15 @@ func main() {
 	//字符转换字符串
 	fmt.Println(string(byteData))
 
-	//int 转换 string
+	//string 转换 int
 	intData, _ := strconv.Atoi(stringData)
+
+	//使用1分割字符串
+	datas := strings.Split(tmp, "1")
 
 	fmt.Println(intData)
 
 	fmt.Println(bytes)
+
+	fmt.Println(datas)
 }
