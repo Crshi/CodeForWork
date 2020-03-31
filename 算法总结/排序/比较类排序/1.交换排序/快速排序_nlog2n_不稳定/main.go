@@ -16,6 +16,7 @@ import "fmt"
 // 在最好情况下，每次划分所取的基准都是当前无序区的"中值"记录，划分的结果是基准的左、右两个无序子区间的长度大致相等。总的关键字比较次数：O(nlogn)；
 // 尽管快速排序的最坏时间为O(n*n)，但就平均性能而言，它是基于关键字比较的内部排序算法中速度最快者，快速排序亦因此而得名。它的平均时间复杂度为O(nlogn)。
 
+//迭代
 func quickSort(array []int, left, right int) {
 	if left >= right {
 		return
@@ -41,6 +42,7 @@ func quickSort(array []int, left, right int) {
 	quickSort(array, j+1, right)
 }
 
+//多线程版本
 func mutiProcessQuickSort(array []int, ch chan int) {
 	if len(array) == 1 {
 		ch <- array[0]
@@ -81,9 +83,46 @@ func mutiProcessQuickSort(array []int, ch chan int) {
 	return
 }
 
+//递归
+func sortArray(nums []int) []int {
+	_quick_sort1(nums, 0, len(nums)-1)
+	return nums
+}
+
+//leetcode submit region end(Prohibit modification and deletion)
+func _quick_sort1(arr []int, begin, end int) {
+	// terminal
+	if begin >= end {
+		return
+	}
+	// current logic
+	//mid := (begin + end) >> 1
+	mid := _partition(arr, begin, end)
+	// drill down
+	_quick_sort1(arr, begin, mid-1)
+	_quick_sort1(arr, mid+1, end)
+}
+
+// 分区、返回基准索引p、使得arr[l:p - 1] < arr[p] && arr[p + 1: r] > arr[p]
+func _partition(arr []int, l int, r int) int {
+	p := l     // 取第一个元素为基点
+	j := p + 1 // j 表示大于基点和小于基点的分界下标
+	for i := l + 1; i <= r; i++ {
+		if arr[i] < arr[p] {
+			arr[i], arr[j] = arr[j], arr[i]
+			j++
+		}
+	}
+	// 整个数组遍历完成之后、j所指向的元素就是第一个大于arr[p]的元素、所以将p与j-1进行交换
+	// 最后返回j - 1
+	arr[p], arr[j-1] = arr[j-1], arr[p]
+	return j - 1
+}
+
 func main() {
-	data := []int{10, 7, 8, 6, 3, 9}
+	data := []int{10, 1, 35, 61, 89, 36, 55}
 	quickSort(data, 0, len(data)-1)
+	sortArray(data)
 	fmt.Println(data)
 
 	// ch := make(chan int)
