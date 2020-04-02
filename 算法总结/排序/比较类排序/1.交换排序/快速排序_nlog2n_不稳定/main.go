@@ -26,15 +26,20 @@ func quickSort(array []int, left, right int) {
 	j := right
 
 	baseNum := array[i]
+	fmt.Println("基准为：", baseNum)
 	for i < j {
+		//从后往前找到一个小于baseNum的数字
 		for array[j] >= baseNum && j > i {
 			j--
 		}
 		array[i] = array[j]
+		fmt.Println(array)
+		//从前往后找到一个大于baseNum的数字
 		for array[i] <= baseNum && j > i {
 			i++
 		}
 		array[j] = array[i]
+		fmt.Println(array)
 	}
 	array[j] = baseNum
 
@@ -122,8 +127,8 @@ func _partition(arr []int, l int, r int) int {
 func main() {
 	data := []int{10, 1, 35, 61, 89, 36, 55}
 	quickSort(data, 0, len(data)-1)
-	sortArray(data)
-	fmt.Println(data)
+	// sortArray(data)
+	// fmt.Println(data)
 
 	// ch := make(chan int)
 	// go mutiProcessQuickSort(data, ch)
