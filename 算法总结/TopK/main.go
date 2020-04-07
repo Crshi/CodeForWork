@@ -2,7 +2,7 @@ package main
 
 import "container/heap"
 
-//	347
+//	前k个高频元素
 type Feq struct {
 	val int
 	cnt int
@@ -12,9 +12,11 @@ type FeqMinHeap []Feq
 func (pq *FeqMinHeap) Len() int {
 	return len(*pq)
 }
+
 func (pq *FeqMinHeap) Less(i, j int) bool {
 	return (*pq)[i].cnt < (*pq)[j].cnt
 }
+
 func (pq *FeqMinHeap) Swap(i, j int) {
 	(*pq)[i], (*pq)[j] = (*pq)[j], (*pq)[i]
 }
@@ -29,6 +31,7 @@ func (pq *FeqMinHeap) Pop() interface{} {
 	*pq = (*pq)[:n]
 	return x
 }
+
 func (pq *FeqMinHeap) Peek() Feq {
 	return (*pq)[0]
 }
