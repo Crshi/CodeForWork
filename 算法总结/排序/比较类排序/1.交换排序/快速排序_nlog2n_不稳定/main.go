@@ -125,7 +125,7 @@ func _partition(arr []int, l int, r int) int {
 }
 
 func main() {
-	data := []int{10, 1, 35, 61, 89, 36, 55}
+	data := []int{35, 1, 10, 7, 8, 61, 89, 36, 55}
 	quickSort(data, 0, len(data)-1)
 	// sortArray(data)
 	// fmt.Println(data)

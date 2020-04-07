@@ -35,5 +35,6 @@ func heap_sort(li []int) {
 }
 
 func main() {
-
+	datas := []int{10, 1, 35, 61, 7, 8, 89, 36, 55}
+	heap_sort(datas)
 }
