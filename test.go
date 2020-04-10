@@ -1,17 +1,38 @@
 package main
 
-func sortArray(nums []int) []int {
-    for i:=0 ;i < len(nums)-1;i++ {
-            j:=0;j < len(nums)-1-i;j++ {
-            if nums[j] > nums[j+1] {
-                nums[j],nums[j+1] = nums[j+1],nums[j]
-            }
-        }
-    }
-    return nums
+import (
+	"fmt"
+)
+
+func lengthOfLongestSubstring(s string) int {
+	if len(s) == 0 {
+		return 0
+	}
+	datas := make(map[byte]int, 0)
+	left := 0
+	right := 0
+	res := 0
+	for left <= right && right < len(s) {
+		if datas[s[right]] == 0 {
+			datas[s[right]]++
+			right++
+			res = max(res, right-left)
+		} else {
+			datas[s[left]]--
+			left++
+		}
+	}
+
+	return res
 }
 
+func max(a int, b int) int {
+	if a > b {
+		return a
+	}
+
+	return b
+}
 func main() {
-	tmp := [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
-	rotate(tmp)
+	fmt.Println(lengthOfLongestSubstring("abcabcbb"))
 }
