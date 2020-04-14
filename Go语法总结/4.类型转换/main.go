@@ -10,8 +10,11 @@ func main() {
 	data := 10
 	tmp := "11111"
 
-	//数字转换string
+	//int转换string
 	stringData := strconv.Itoa(data)
+
+	//string 转换 int
+	intData, _ := strconv.Atoi(stringData)
 
 	//利用索引获取字符
 	byteData := tmp[0]
@@ -21,9 +24,6 @@ func main() {
 
 	//字符转换字符串
 	fmt.Println(string(byteData))
-
-	//string 转换 int
-	intData, _ := strconv.Atoi(stringData)
 
 	//使用1分割字符串
 	datas := strings.Split(tmp, "1")

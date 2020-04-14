@@ -1,38 +1,34 @@
+// Clock1 is a TCP server that periodically writes the time.
 package main
 
 import (
-	"fmt"
+	"io"
+	"log"
+	"net"
+	"time"
 )
 
-func lengthOfLongestSubstring(s string) int {
-	if len(s) == 0 {
-		return 0
-	}
-	datas := make(map[byte]int, 0)
-	left := 0
-	right := 0
-	res := 0
-	for left <= right && right < len(s) {
-		if datas[s[right]] == 0 {
-			datas[s[right]]++
-			right++
-			res = max(res, right-left)
-		} else {
-			datas[s[left]]--
-			left++
-		}
-	}
-
-	return res
-}
-
-func max(a int, b int) int {
-	if a > b {
-		return a
-	}
-
-	return b
-}
 func main() {
-	fmt.Println(lengthOfLongestSubstring("abcabcbb"))
+	listener, err := net.Listen("tcp", "localhost:8000")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			log.Print(err) // e.g., connection aborted
+			continue
+		}
+		go handleConn(conn) // handle one connection at a time
+	}
+}
+func handleConn(c net.Conn) {
+	defer c.Close()
+	for {
+		_, err := io.WriteString(c, time.Now().Format("15:04:05\n"))
+		if err != nil {
+			return // e.g., client disconnected
+		}
+		time.Sleep(1 * time.Second)
+	}
 }
