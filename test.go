@@ -1,34 +1,38 @@
-// Clock1 is a TCP server that periodically writes the time.
 package main
 
 import (
-	"io"
-	"log"
-	"net"
-	"time"
+	"fmt"
+	"sync"
 )
 
 func main() {
-	listener, err := net.Listen("tcp", "localhost:8000")
-	if err != nil {
-		log.Fatal(err)
-	}
-	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			log.Print(err) // e.g., connection aborted
-			continue
+	//偶数
+	even := make(chan bool)
+	//奇数
+	odd := make(chan bool)
+
+	wg := sync.WaitGroup{}
+	wg.Add(2)
+
+	go func() {
+		defer wg.Done()
+		for i := 0; i <= 10; i += 2 {
+			fmt.Println("go1 :", i)
+			odd <- true
+			<-even
 		}
-		go handleConn(conn) // handle one connection at a time
-	}
-}
-func handleConn(c net.Conn) {
-	defer c.Close()
-	for {
-		_, err := io.WriteString(c, time.Now().Format("15:04:05\n"))
-		if err != nil {
-			return // e.g., client disconnected
+	}()
+
+	go func() {
+		defer wg.Done()
+		for i := 1; i <= 10; i += 2 {
+			<-odd
+			fmt.Println("go2 :", i)
+			even <- true
 		}
-		time.Sleep(1 * time.Second)
-	}
+		<-odd
+		even <- true
+	}()
+
+	wg.Wait()
 }
