@@ -28,14 +28,14 @@ func quickSort(array []int, left, right int) {
 	baseNum := array[i]
 	fmt.Println("基准为：", baseNum)
 	for i < j {
-		//从后往前找到一个小于baseNum的数字，然后给I复制
-		for array[j] >= baseNum && j > i {
+		//从后往前找到一个小于baseNum的数字，然后给I赋值
+		for i < j && array[j] >= baseNum {
 			j--
 		}
 		array[i] = array[j]
 		fmt.Println(array)
 		//从前往后找到一个大于baseNum的数字,然后给J赋值
-		for array[i] <= baseNum && j > i {
+		for i < j && array[i] <= baseNum {
 			i++
 		}
 		array[j] = array[i]
